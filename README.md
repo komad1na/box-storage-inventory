@@ -14,8 +14,6 @@ A simple desktop inventory manager built with PyQt6 and SQLite. It provides a mo
 
 - Python 3.10+
 - PyQt6
-- pytest (for tests)
-- pytest-qt (for running the Qt tests)
 
 You can install the development requirements with:
 
