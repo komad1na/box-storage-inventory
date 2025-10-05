@@ -1,2 +1,4 @@
-.claude/*
+.claude/
 inventory.db
+backup/
+logs/
