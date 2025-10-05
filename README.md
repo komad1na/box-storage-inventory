@@ -11,12 +11,14 @@ A modern desktop inventory management system built with PyQt6 and SQLite. Featur
 ## 🎯 Features
 
 ### Core Functionality
+
 - ✅ **Box Management**: Create, read, update, and delete storage boxes
 - ✅ **Item Management**: Track items with quantities assigned to boxes
 - ✅ **Search & Filter**: Advanced filtering by name, box, and other criteria
 - ✅ **Modern Dark Theme**: Clean, professional interface with custom styling
 
 ### Data Management
+
 - 📁 **CSV Import**: Import inventory data with comprehensive validation
   - Pre-import validation checks
   - Preview dialog before committing
@@ -26,6 +28,7 @@ A modern desktop inventory management system built with PyQt6 and SQLite. Featur
 - 🗄️ **SQLite Database**: Reliable persistence with foreign key constraints
 
 ### Audit & Logging
+
 - 📝 **Audit Logs**: Complete transaction history with detailed change tracking
 - 🕐 **History Tab**: View all operations with filtering by action type and entity
 - 📊 **Statistics**: Real-time counts of creates, updates, and deletes
@@ -33,6 +36,7 @@ A modern desktop inventory management system built with PyQt6 and SQLite. Featur
 - 🔍 **Change Tracking**: Stores before/after values for all updates
 
 ### User Experience
+
 - 🎨 **Responsive UI**: Clean table layouts with alternating row colors
 - 🔎 **Real-time Search**: Instant filtering as you type
 - ⚡ **Quick Actions**: In-table edit and delete buttons
@@ -67,6 +71,7 @@ python main.py
 ```
 
 Or using the legacy file:
+
 ```bash
 python inv_pyqt.py
 ```
@@ -104,6 +109,7 @@ python inv_pyqt.py
 4. Confirm import if no errors
 
 **CSV Format Example:**
+
 ```csv
 Item Name,Box,Quantity
 Screwdriver,Toolbox A,5
@@ -149,16 +155,19 @@ inventory/
 ### Tables
 
 **boxes**
+
 - `id` (INTEGER PRIMARY KEY)
 - `name` (TEXT NOT NULL)
 
 **items**
+
 - `id` (INTEGER PRIMARY KEY)
 - `name` (TEXT NOT NULL)
 - `box_id` (INTEGER, FOREIGN KEY → boxes.id)
 - `quantity` (INTEGER DEFAULT 1)
 
 **audit_logs**
+
 - `id` (INTEGER PRIMARY KEY)
 - `timestamp` (TEXT)
 - `action` (TEXT) - CREATE/UPDATE/DELETE/IMPORT/EXPORT/BACKUP/SHUTDOWN
@@ -181,21 +190,25 @@ inventory/
 ## 🔧 Troubleshooting
 
 ### Import Errors
+
 - Ensure CSV has correct headers: `Item Name`, `Box`, `Quantity`
 - Boxes must exist before importing items
 - Quantities must be positive integers
 
 ### Database Issues
+
 - Check that `inventory.db` has write permissions
 - Review logs in `logs/` folder for detailed error messages
 
 ### Display Issues
+
 - Ensure PyQt6 is properly installed
 - Try restarting the application
 
 ## 📝 Version History
 
 ### Version 2.0.0 (Current)
+
 - ✨ Added comprehensive audit logging system
 - ✨ Added History tab with filtering and statistics
 - ✨ Added CSV import with validation and preview
@@ -209,10 +222,16 @@ inventory/
 - 📦 **New**: Organized code into `modules/` folder for better maintainability
 
 ### Version 1.0.0
-- Initial release with basic CRUD operations
+
+- Initial GUI release with basic CRUD operations
 - Box and Item management
 - Search and filter functionality
 - Dark theme UI
+
+### Version 0.5.0
+
+- Initial CLI version with CRUD operations
+- Colored console text
 
 ## 🤝 Contributing
 
