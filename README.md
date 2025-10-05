@@ -217,8 +217,6 @@ inventory/
 - ✨ Added version tracking and About dialog
 - ✨ **Refactored codebase into modular architecture**
 - ✨ Improved UI with consistent borders and focus states
-- 🐛 Fixed table border alignment issues
-- 🐛 Removed unwanted selection artifacts
 - 📦 **New**: Organized code into `modules/` folder for better maintainability
 
 ### Version 1.0.0
