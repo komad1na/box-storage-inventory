@@ -80,12 +80,14 @@ class HistoryTab(QWidget):
 
         # Set column widths
         header = self.table.horizontalHeader()
-        header.setSectionResizeMode(4, QHeaderView.ResizeMode.Stretch)  # Details stretches
+        header.setSectionResizeMode(
+            4, QHeaderView.ResizeMode.Stretch
+        )  # Details stretches
         self.table.setColumnWidth(0, 150)  # Timestamp
-        self.table.setColumnWidth(1, 80)   # Action
-        self.table.setColumnWidth(2, 60)   # Type
+        self.table.setColumnWidth(1, 100)  # Action
+        self.table.setColumnWidth(2, 100)  # Type
         self.table.setColumnWidth(3, 180)  # Entity
-        self.table.setColumnWidth(5, 50)   # ID
+        self.table.setColumnWidth(5, 50)  # ID
 
         self.table.setSelectionBehavior(QAbstractItemView.SelectionBehavior.SelectRows)
         self.table.setEditTriggers(QAbstractItemView.EditTrigger.NoEditTriggers)
@@ -97,7 +99,9 @@ class HistoryTab(QWidget):
 
         # Stats summary
         self.stats_label = QLabel()
-        self.stats_label.setStyleSheet(f"color: {ModernStyle.TEXT_SECONDARY}; padding: 5px;")
+        self.stats_label.setStyleSheet(
+            f"color: {ModernStyle.TEXT_SECONDARY}; padding: 5px;"
+        )
         layout.addWidget(self.stats_label)
 
         self.setLayout(layout)
@@ -141,7 +145,14 @@ class HistoryTab(QWidget):
         self.parent.cursor.execute(query, params)
         logs = self.parent.cursor.fetchall()
 
-        for row_idx, (timestamp, action, entity_type, entity_name, details, entity_id) in enumerate(logs):
+        for row_idx, (
+            timestamp,
+            action,
+            entity_type,
+            entity_name,
+            details,
+            entity_id,
+        ) in enumerate(logs):
             self.table.insertRow(row_idx)
 
             # Timestamp
@@ -172,7 +183,9 @@ class HistoryTab(QWidget):
 
             # Details
             details_item = QTableWidgetItem(details or "")
-            details_item.setTextAlignment(Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignVCenter)
+            details_item.setTextAlignment(
+                Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignVCenter
+            )
             self.table.setItem(row_idx, 4, details_item)
 
             # ID
@@ -186,9 +199,11 @@ class HistoryTab(QWidget):
     def update_stats(self):
         """Update statistics label."""
         # Count by action type
-        self.parent.cursor.execute("""
+        self.parent.cursor.execute(
+            """
             SELECT action, COUNT(*) FROM audit_logs GROUP BY action
-        """)
+        """
+        )
         stats = dict(self.parent.cursor.fetchall())
 
         total = sum(stats.values())

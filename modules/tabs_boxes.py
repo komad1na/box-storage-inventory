@@ -31,22 +31,23 @@ class BoxesTab(QWidget):
         self.setup_ui()
 
     def setup_ui(self):
+        tr = self.parent.translator
         layout = QVBoxLayout()
 
         # Search bar
         search_layout = QHBoxLayout()
 
         self.search_input = QLineEdit()
-        self.search_input.setPlaceholderText("Search boxes...")
+        self.search_input.setPlaceholderText(tr.tr('placeholder_search_boxes'))
         self.search_input.textChanged.connect(self.load_boxes)
         search_layout.addWidget(self.search_input, 4)
 
-        clear_btn = QPushButton("Clear Search")
+        clear_btn = QPushButton(tr.tr('btn_clear_search'))
         clear_btn.setProperty("class", "neutral")
         clear_btn.clicked.connect(self.search_input.clear)
         search_layout.addWidget(clear_btn, 1)
 
-        add_btn = QPushButton("+ Add Box")
+        add_btn = QPushButton(tr.tr('btn_add_box'))
         add_btn.clicked.connect(self.add_box)
         search_layout.addWidget(add_btn, 1)
 
@@ -54,16 +55,24 @@ class BoxesTab(QWidget):
 
         # Table
         self.table = QTableWidget()
-        self.table.setColumnCount(3)
-        self.table.setHorizontalHeaderLabels(["ID", "Box Name", "Actions"])
+        self.table.setColumnCount(4)
+        self.table.setHorizontalHeaderLabels([
+            tr.tr('header_id'),
+            tr.tr('header_box_name'),
+            tr.tr('header_location'),
+            tr.tr('header_actions')
+        ])
 
         # Set column widths
         header = self.table.horizontalHeader()
         header.setSectionResizeMode(
             1, QHeaderView.ResizeMode.Stretch
         )  # Box Name stretches
+        header.setSectionResizeMode(
+            2, QHeaderView.ResizeMode.Stretch
+        )  # Location stretches
         self.table.setColumnWidth(0, 50)  # ID column narrow
-        self.table.setColumnWidth(2, 200)  # Actions column
+        self.table.setColumnWidth(3, 200)  # Actions column
 
         self.table.setSelectionBehavior(QAbstractItemView.SelectionBehavior.SelectRows)
         self.table.setEditTriggers(QAbstractItemView.EditTrigger.NoEditTriggers)
@@ -78,14 +87,16 @@ class BoxesTab(QWidget):
 
     def load_boxes(self):
         """Load boxes into table."""
+        tr = self.parent.translator
         self.table.setRowCount(0)
 
-        query = "SELECT id, name FROM boxes WHERE 1=1"
+        query = "SELECT id, name, location FROM boxes WHERE 1=1"
         params = []
 
         search_text = self.search_input.text().strip()
         if search_text:
-            query += " AND name LIKE ?"
+            query += " AND (name LIKE ? OR location LIKE ?)"
+            params.append(f"%{search_text}%")
             params.append(f"%{search_text}%")
 
         query += " ORDER BY id"
@@ -93,7 +104,7 @@ class BoxesTab(QWidget):
         self.parent.cursor.execute(query, params)
         boxes = self.parent.cursor.fetchall()
 
-        for row_idx, (box_id, name) in enumerate(boxes):
+        for row_idx, (box_id, name, location) in enumerate(boxes):
             self.table.insertRow(row_idx)
 
             # ID
@@ -106,6 +117,11 @@ class BoxesTab(QWidget):
             name_item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
             self.table.setItem(row_idx, 1, name_item)
 
+            # Location
+            location_item = QTableWidgetItem(location or "")
+            location_item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
+            self.table.setItem(row_idx, 2, location_item)
+
             # Actions
             actions_widget = QWidget()
             actions_widget.setStyleSheet("QWidget { background: transparent; border: none; }")
@@ -114,7 +130,7 @@ class BoxesTab(QWidget):
             actions_layout.setSpacing(5)
             actions_layout.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
-            edit_btn = QPushButton("Edit")
+            edit_btn = QPushButton(tr.tr('btn_edit'))
             edit_btn.setFixedSize(45, 22)
             edit_btn.setStyleSheet(
                 f"""
@@ -132,11 +148,11 @@ class BoxesTab(QWidget):
             """
             )
             edit_btn.clicked.connect(
-                lambda checked, i=box_id, n=name: self.edit_box(i, n)
+                lambda checked, i=box_id, n=name, loc=location: self.edit_box(i, n, loc)
             )
             actions_layout.addWidget(edit_btn)
 
-            delete_btn = QPushButton("Del")
+            delete_btn = QPushButton(tr.tr('btn_delete'))
             delete_btn.setFixedSize(45, 22)
             delete_btn.setStyleSheet(
                 f"""
@@ -157,27 +173,28 @@ class BoxesTab(QWidget):
             delete_btn.clicked.connect(lambda checked, i=box_id: self.delete_box(i))
             actions_layout.addWidget(delete_btn)
 
-            self.table.setCellWidget(row_idx, 2, actions_widget)
+            self.table.setCellWidget(row_idx, 3, actions_widget)
 
     def add_box(self):
         """Show add box dialog."""
         dialog = EditBoxDialog(self)
         if dialog.exec() == QDialog.DialogCode.Accepted:
-            name = dialog.result
+            name, location = dialog.result
             try:
                 self.parent.cursor.execute(
-                    "INSERT INTO boxes (name) VALUES (?)", (name,)
+                    "INSERT INTO boxes (name, location) VALUES (?, ?)", (name, location)
                 )
                 box_id = self.parent.cursor.lastrowid
                 self.parent.conn.commit()
 
                 # Log the action
+                details = f"Created new box at location: {location}" if location else "Created new box"
                 self.parent.log_action(
                     action="CREATE",
                     entity_type="BOX",
                     entity_id=box_id,
                     entity_name=name,
-                    details="Created new box"
+                    details=details
                 )
 
                 QMessageBox.information(self, "Success", "Box added successfully")
@@ -186,30 +203,37 @@ class BoxesTab(QWidget):
                 self.parent.conn.rollback()
                 QMessageBox.critical(self, "Error", f"Database error: {e}")
 
-    def edit_box(self, box_id, name):
+    def edit_box(self, box_id, name, location):
         """Show edit box dialog."""
-        box_data = (box_id, name)
+        box_data = (box_id, name, location)
         old_name = name
+        old_location = location
 
         dialog = EditBoxDialog(self, box_data)
         if dialog.exec() == QDialog.DialogCode.Accepted:
-            new_name = dialog.result
+            new_name, new_location = dialog.result
             try:
                 self.parent.cursor.execute(
-                    "UPDATE boxes SET name = ? WHERE id = ?", (new_name, box_id)
+                    "UPDATE boxes SET name = ?, location = ? WHERE id = ?", (new_name, new_location, box_id)
                 )
                 self.parent.conn.commit()
 
                 # Log the action
-                changes = f"name: '{old_name}' → '{new_name}'" if old_name != new_name else "No changes"
+                changes = []
+                if old_name != new_name:
+                    changes.append(f"name: '{old_name}' → '{new_name}'")
+                if old_location != new_location:
+                    changes.append(f"location: '{old_location or 'None'}' → '{new_location or 'None'}'")
+
+                change_details = ", ".join(changes) if changes else "No changes"
                 self.parent.log_action(
                     action="UPDATE",
                     entity_type="BOX",
                     entity_id=box_id,
                     entity_name=new_name,
-                    details=changes,
-                    old_value=old_name,
-                    new_value=new_name
+                    details=change_details,
+                    old_value=f"name: {old_name}, location: {old_location}",
+                    new_value=f"name: {new_name}, location: {new_location}"
                 )
 
                 QMessageBox.information(self, "Success", "Box updated successfully")

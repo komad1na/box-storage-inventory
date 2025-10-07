@@ -3,3 +3,6 @@ inventory.db
 backup/
 logs/
 modules/__pycache__/
+build/
+dist/
+gui.spec

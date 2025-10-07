@@ -2,6 +2,7 @@
 Dialog windows for the application
 """
 
+import logging
 from PyQt6.QtWidgets import (
     QDialog,
     QVBoxLayout,
@@ -31,11 +32,19 @@ class EditItemDialog(QDialog):
 
     def __init__(self, parent, cursor, item_data=None):
         super().__init__(parent)
+        self.logger = logging.getLogger(__name__)
         self.cursor = cursor
         self.item_data = item_data
-        self.setWindowTitle("Edit Item" if item_data else "Add New Item")
+        dialog_type = "Edit Item" if item_data else "Add New Item"
+        self.setWindowTitle(dialog_type)
         self.setModal(True)
         self.setMinimumWidth(400)
+
+        if item_data:
+            self.logger.info(f"Opened Edit Item dialog for item ID: {item_data[0]}, Name: {item_data[1]}")
+        else:
+            self.logger.info("Opened Add New Item dialog")
+
         self.setup_ui()
 
     def setup_ui(self):
@@ -113,14 +122,17 @@ class EditItemDialog(QDialog):
         """Save the item."""
         name = self.name_input.text().strip()
         if not name:
+            self.logger.warning("Item save cancelled: name is empty")
             QMessageBox.warning(self, "Error", "Item name cannot be empty")
             return
 
         box_id = self.box_combo.currentData()
         quantity = self.quantity_spin.value()
 
+        self.logger.info(f"Item dialog saved: name='{name}', box_id={box_id}, quantity={quantity}")
         self.result = (name, box_id, quantity)
         self.accept()
+        self.logger.info("Item dialog closed (accepted)")
 
 
 class ImportPreviewDialog(QDialog):
@@ -128,11 +140,15 @@ class ImportPreviewDialog(QDialog):
 
     def __init__(self, parent, import_data, validation_errors):
         super().__init__(parent)
+        self.logger = logging.getLogger(__name__)
         self.import_data = import_data
         self.validation_errors = validation_errors
         self.setWindowTitle("CSV Import Preview")
         self.setModal(True)
         self.setMinimumSize(800, 600)
+
+        self.logger.info(f"Opened CSV Import Preview dialog: {len(import_data)} items, {len(validation_errors)} errors")
+
         self.setup_ui()
 
     def setup_ui(self):
@@ -251,10 +267,18 @@ class EditBoxDialog(QDialog):
 
     def __init__(self, parent, box_data=None):
         super().__init__(parent)
+        self.logger = logging.getLogger(__name__)
         self.box_data = box_data
-        self.setWindowTitle("Edit Box" if box_data else "Add New Box")
+        dialog_type = "Edit Box" if box_data else "Add New Box"
+        self.setWindowTitle(dialog_type)
         self.setModal(True)
         self.setMinimumWidth(400)
+
+        if box_data:
+            self.logger.info(f"Opened Edit Box dialog for box ID: {box_data[0]}, Name: {box_data[1]}")
+        else:
+            self.logger.info("Opened Add New Box dialog")
+
         self.setup_ui()
 
     def setup_ui(self):
@@ -274,6 +298,13 @@ class EditBoxDialog(QDialog):
         if self.box_data:
             self.name_input.setText(self.box_data[1])
         form_layout.addRow("Box Name:", self.name_input)
+
+        # Location
+        self.location_input = QLineEdit()
+        self.location_input.setPlaceholderText("e.g., Garage Shelf 2, Basement Cabinet A")
+        if self.box_data and len(self.box_data) > 2:
+            self.location_input.setText(self.box_data[2] or "")
+        form_layout.addRow("Location:", self.location_input)
 
         layout.addLayout(form_layout)
 
@@ -303,8 +334,12 @@ class EditBoxDialog(QDialog):
         """Save the box."""
         name = self.name_input.text().strip()
         if not name:
+            self.logger.warning("Box save cancelled: name is empty")
             QMessageBox.warning(self, "Error", "Box name cannot be empty")
             return
 
-        self.result = name
+        location = self.location_input.text().strip()
+        self.logger.info(f"Box dialog saved: name='{name}', location='{location}'")
+        self.result = (name, location)
         self.accept()
+        self.logger.info("Box dialog closed (accepted)")

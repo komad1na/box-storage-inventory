@@ -57,8 +57,8 @@ class ModernStyle:
             }}
 
             QTableWidget::item {{
-                padding-top: 10px;
-                padding-bottom: 10px;
+                padding-top: 8px;
+                padding-bottom: 8px;
                 border-right: 1px solid {ModernStyle.BORDER};
                 border-bottom: 1px solid {ModernStyle.BORDER};
                 border-left: none;

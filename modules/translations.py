@@ -1,0 +1,607 @@
+"""
+Multi-language support for Inventory Manager
+"""
+
+
+class Translations:
+    """Translation strings for the application."""
+
+    # Available languages
+    LANGUAGES = {
+        'en': 'English',
+        'sr': 'Српски (Serbian)',
+        'de': 'Deutsch (German)',
+        'es': 'Español (Spanish)',
+        'fr': 'Français (French)',
+        'it': 'Italiano (Italian)',
+    }
+
+    # Translation dictionary
+    STRINGS = {
+        # Application
+        'app_name': {
+            'en': 'Inventory Manager',
+            'sr': 'Менаџер Инвентара',
+            'de': 'Inventarverwaltung',
+            'es': 'Gestor de Inventario',
+            'fr': 'Gestionnaire d\'Inventaire',
+            'it': 'Gestore Inventario',
+        },
+
+        # Tabs
+        'tab_boxes': {
+            'en': 'Boxes',
+            'sr': 'Кутије',
+            'de': 'Boxen',
+            'es': 'Cajas',
+            'fr': 'Boîtes',
+            'it': 'Scatole',
+        },
+        'tab_items': {
+            'en': 'Items',
+            'sr': 'Ставке',
+            'de': 'Artikel',
+            'es': 'Artículos',
+            'fr': 'Articles',
+            'it': 'Articoli',
+        },
+        'tab_history': {
+            'en': 'History',
+            'sr': 'Историја',
+            'de': 'Verlauf',
+            'es': 'Historial',
+            'fr': 'Historique',
+            'it': 'Cronologia',
+        },
+
+        # Menu
+        'menu_file': {
+            'en': 'File',
+            'sr': 'Фајл',
+            'de': 'Datei',
+            'es': 'Archivo',
+            'fr': 'Fichier',
+            'it': 'File',
+        },
+        'menu_help': {
+            'en': 'Help',
+            'sr': 'Помоћ',
+            'de': 'Hilfe',
+            'es': 'Ayuda',
+            'fr': 'Aide',
+            'it': 'Aiuto',
+        },
+        'menu_backup': {
+            'en': 'Backup Database',
+            'sr': 'Бекап базе података',
+            'de': 'Datenbank sichern',
+            'es': 'Copia de seguridad',
+            'fr': 'Sauvegarder la base',
+            'it': 'Backup database',
+        },
+        'menu_export_inventory': {
+            'en': 'Export Inventory to CSV',
+            'sr': 'Извези инвентар у CSV',
+            'de': 'Inventar nach CSV exportieren',
+            'es': 'Exportar inventario a CSV',
+            'fr': 'Exporter l\'inventaire en CSV',
+            'it': 'Esporta inventario in CSV',
+        },
+        'menu_export_logs': {
+            'en': 'Export Audit Logs to CSV',
+            'sr': 'Извези логове у CSV',
+            'de': 'Audit-Logs nach CSV exportieren',
+            'es': 'Exportar registros a CSV',
+            'fr': 'Exporter les journaux en CSV',
+            'it': 'Esporta log di audit in CSV',
+        },
+        'menu_import': {
+            'en': 'Import from CSV',
+            'sr': 'Увези из CSV',
+            'de': 'Aus CSV importieren',
+            'es': 'Importar desde CSV',
+            'fr': 'Importer depuis CSV',
+            'it': 'Importa da CSV',
+        },
+        'menu_language': {
+            'en': 'Language',
+            'sr': 'Језик',
+            'de': 'Sprache',
+            'es': 'Idioma',
+            'fr': 'Langue',
+            'it': 'Lingua',
+        },
+        'menu_exit': {
+            'en': 'Exit',
+            'sr': 'Излаз',
+            'de': 'Beenden',
+            'es': 'Salir',
+            'fr': 'Quitter',
+            'it': 'Esci',
+        },
+        'menu_about': {
+            'en': 'About',
+            'sr': 'О програму',
+            'de': 'Über',
+            'es': 'Acerca de',
+            'fr': 'À propos',
+            'it': 'Informazioni',
+        },
+
+        # Buttons
+        'btn_add': {
+            'en': 'Add',
+            'sr': 'Додај',
+            'de': 'Hinzufügen',
+            'es': 'Agregar',
+            'fr': 'Ajouter',
+            'it': 'Aggiungi',
+        },
+        'btn_add_box': {
+            'en': '+ Add Box',
+            'sr': '+ Додај кутију',
+            'de': '+ Box hinzufügen',
+            'es': '+ Agregar caja',
+            'fr': '+ Ajouter boîte',
+            'it': '+ Aggiungi scatola',
+        },
+        'btn_add_item': {
+            'en': '+ Add Item',
+            'sr': '+ Додај ставку',
+            'de': '+ Artikel hinzufügen',
+            'es': '+ Agregar artículo',
+            'fr': '+ Ajouter article',
+            'it': '+ Aggiungi articolo',
+        },
+        'btn_edit': {
+            'en': 'Edit',
+            'sr': 'Измени',
+            'de': 'Bearbeiten',
+            'es': 'Editar',
+            'fr': 'Modifier',
+            'it': 'Modifica',
+        },
+        'btn_delete': {
+            'en': 'Del',
+            'sr': 'Обриши',
+            'de': 'Löschen',
+            'es': 'Eliminar',
+            'fr': 'Supprimer',
+            'it': 'Elimina',
+        },
+        'btn_cancel': {
+            'en': 'Cancel',
+            'sr': 'Откажи',
+            'de': 'Abbrechen',
+            'es': 'Cancelar',
+            'fr': 'Annuler',
+            'it': 'Annulla',
+        },
+        'btn_update': {
+            'en': 'Update',
+            'sr': 'Ажурирај',
+            'de': 'Aktualisieren',
+            'es': 'Actualizar',
+            'fr': 'Mettre à jour',
+            'it': 'Aggiorna',
+        },
+        'btn_clear_filters': {
+            'en': 'Clear Filters',
+            'sr': 'Обриши филтере',
+            'de': 'Filter löschen',
+            'es': 'Limpiar filtros',
+            'fr': 'Effacer les filtres',
+            'it': 'Cancella filtri',
+        },
+        'btn_clear_search': {
+            'en': 'Clear Search',
+            'sr': 'Обриши претрагу',
+            'de': 'Suche löschen',
+            'es': 'Limpiar búsqueda',
+            'fr': 'Effacer la recherche',
+            'it': 'Cancella ricerca',
+        },
+        'btn_refresh': {
+            'en': 'Refresh',
+            'sr': 'Освежи',
+            'de': 'Aktualisieren',
+            'es': 'Actualizar',
+            'fr': 'Rafraîchir',
+            'it': 'Aggiorna',
+        },
+
+        # Labels
+        'label_box_name': {
+            'en': 'Box Name',
+            'sr': 'Име кутије',
+            'de': 'Boxname',
+            'es': 'Nombre de caja',
+            'fr': 'Nom de la boîte',
+            'it': 'Nome scatola',
+        },
+        'label_item_name': {
+            'en': 'Item Name',
+            'sr': 'Име ставке',
+            'de': 'Artikelname',
+            'es': 'Nombre del artículo',
+            'fr': 'Nom de l\'article',
+            'it': 'Nome articolo',
+        },
+        'label_location': {
+            'en': 'Location',
+            'sr': 'Локација',
+            'de': 'Standort',
+            'es': 'Ubicación',
+            'fr': 'Emplacement',
+            'it': 'Posizione',
+        },
+        'label_quantity': {
+            'en': 'Quantity',
+            'sr': 'Количина',
+            'de': 'Menge',
+            'es': 'Cantidad',
+            'fr': 'Quantité',
+            'it': 'Quantità',
+        },
+        'label_box': {
+            'en': 'Box',
+            'sr': 'Кутија',
+            'de': 'Box',
+            'es': 'Caja',
+            'fr': 'Boîte',
+            'it': 'Scatola',
+        },
+        'label_actions': {
+            'en': 'Actions',
+            'sr': 'Акције',
+            'de': 'Aktionen',
+            'es': 'Acciones',
+            'fr': 'Actions',
+            'it': 'Azioni',
+        },
+        'label_id': {
+            'en': 'ID',
+            'sr': 'ИД',
+            'de': 'ID',
+            'es': 'ID',
+            'fr': 'ID',
+            'it': 'ID',
+        },
+
+        # Placeholders
+        'placeholder_search_items': {
+            'en': 'Search items...',
+            'sr': 'Претражи ставке...',
+            'de': 'Artikel suchen...',
+            'es': 'Buscar artículos...',
+            'fr': 'Rechercher des articles...',
+            'it': 'Cerca articoli...',
+        },
+        'placeholder_search_boxes': {
+            'en': 'Search boxes...',
+            'sr': 'Претражи кутије...',
+            'de': 'Boxen suchen...',
+            'es': 'Buscar cajas...',
+            'fr': 'Rechercher des boîtes...',
+            'it': 'Cerca scatole...',
+        },
+        'placeholder_search_history': {
+            'en': 'Search by entity name...',
+            'sr': 'Претражи по имену...',
+            'de': 'Nach Entitätsname suchen...',
+            'es': 'Buscar por nombre...',
+            'fr': 'Rechercher par nom...',
+            'it': 'Cerca per nome...',
+        },
+        'placeholder_box_name': {
+            'en': 'Enter box name',
+            'sr': 'Унеси име кутије',
+            'de': 'Boxname eingeben',
+            'es': 'Ingrese nombre de caja',
+            'fr': 'Entrez le nom de la boîte',
+            'it': 'Inserisci nome scatola',
+        },
+        'placeholder_item_name': {
+            'en': 'Enter item name',
+            'sr': 'Унеси име ставке',
+            'de': 'Artikelname eingeben',
+            'es': 'Ingrese nombre del artículo',
+            'fr': 'Entrez le nom de l\'article',
+            'it': 'Inserisci nome articolo',
+        },
+        'placeholder_location': {
+            'en': 'e.g., Garage Shelf 2, Basement Cabinet A',
+            'sr': 'нпр., Полица у гаражи 2, Орман у подруму А',
+            'de': 'z.B. Garage Regal 2, Keller Schrank A',
+            'es': 'ej., Estante garaje 2, Gabinete sótano A',
+            'fr': 'ex., Étagère garage 2, Armoire sous-sol A',
+            'it': 'es., Scaffale garage 2, Armadio cantina A',
+        },
+
+        # Dialogs
+        'dialog_add_box': {
+            'en': 'Add New Box',
+            'sr': 'Додај нову кутију',
+            'de': 'Neue Box hinzufügen',
+            'es': 'Agregar nueva caja',
+            'fr': 'Ajouter une nouvelle boîte',
+            'it': 'Aggiungi nuova scatola',
+        },
+        'dialog_edit_box': {
+            'en': 'Edit Box',
+            'sr': 'Измени кутију',
+            'de': 'Box bearbeiten',
+            'es': 'Editar caja',
+            'fr': 'Modifier la boîte',
+            'it': 'Modifica scatola',
+        },
+        'dialog_add_item': {
+            'en': 'Add New Item',
+            'sr': 'Додај нову ставку',
+            'de': 'Neuen Artikel hinzufügen',
+            'es': 'Agregar nuevo artículo',
+            'fr': 'Ajouter un nouvel article',
+            'it': 'Aggiungi nuovo articolo',
+        },
+        'dialog_edit_item': {
+            'en': 'Edit Item',
+            'sr': 'Измени ставку',
+            'de': 'Artikel bearbeiten',
+            'es': 'Editar artículo',
+            'fr': 'Modifier l\'article',
+            'it': 'Modifica articolo',
+        },
+
+        # Messages
+        'msg_success': {
+            'en': 'Success',
+            'sr': 'Успех',
+            'de': 'Erfolg',
+            'es': 'Éxito',
+            'fr': 'Succès',
+            'it': 'Successo',
+        },
+        'msg_error': {
+            'en': 'Error',
+            'sr': 'Грешка',
+            'de': 'Fehler',
+            'es': 'Error',
+            'fr': 'Erreur',
+            'it': 'Errore',
+        },
+        'msg_box_added': {
+            'en': 'Box added successfully',
+            'sr': 'Кутија успешно додата',
+            'de': 'Box erfolgreich hinzugefügt',
+            'es': 'Caja agregada exitosamente',
+            'fr': 'Boîte ajoutée avec succès',
+            'it': 'Scatola aggiunta con successo',
+        },
+        'msg_box_updated': {
+            'en': 'Box updated successfully',
+            'sr': 'Кутија успешно ажурирана',
+            'de': 'Box erfolgreich aktualisiert',
+            'es': 'Caja actualizada exitosamente',
+            'fr': 'Boîte mise à jour avec succès',
+            'it': 'Scatola aggiornata con successo',
+        },
+        'msg_box_deleted': {
+            'en': 'Box deleted successfully',
+            'sr': 'Кутија успешно обрисана',
+            'de': 'Box erfolgreich gelöscht',
+            'es': 'Caja eliminada exitosamente',
+            'fr': 'Boîte supprimée avec succès',
+            'it': 'Scatola eliminata con successo',
+        },
+        'msg_item_added': {
+            'en': 'Item added successfully',
+            'sr': 'Ставка успешно додата',
+            'de': 'Artikel erfolgreich hinzugefügt',
+            'es': 'Artículo agregado exitosamente',
+            'fr': 'Article ajouté avec succès',
+            'it': 'Articolo aggiunto con successo',
+        },
+        'msg_item_updated': {
+            'en': 'Item updated successfully',
+            'sr': 'Ставка успешно ажурирана',
+            'de': 'Artikel erfolgreich aktualisiert',
+            'es': 'Artículo actualizado exitosamente',
+            'fr': 'Article mis à jour avec succès',
+            'it': 'Articolo aggiornato con successo',
+        },
+        'msg_item_deleted': {
+            'en': 'Item deleted successfully',
+            'sr': 'Ставка успешно обрисана',
+            'de': 'Artikel erfolgreich gelöscht',
+            'es': 'Artículo eliminado exitosamente',
+            'fr': 'Article supprimé avec succès',
+            'it': 'Articolo eliminato con successo',
+        },
+        'msg_no_boxes': {
+            'en': 'No boxes available. Please create a box first.',
+            'sr': 'Нема доступних кутија. Молимо прво креирајте кутију.',
+            'de': 'Keine Boxen verfügbar. Bitte erstellen Sie zuerst eine Box.',
+            'es': 'No hay cajas disponibles. Por favor cree una caja primero.',
+            'fr': 'Aucune boîte disponible. Veuillez d\'abord créer une boîte.',
+            'it': 'Nessuna scatola disponibile. Per favore crea prima una scatola.',
+        },
+        'msg_confirm_delete': {
+            'en': 'Confirm Delete',
+            'sr': 'Потврди брисање',
+            'de': 'Löschen bestätigen',
+            'es': 'Confirmar eliminación',
+            'fr': 'Confirmer la suppression',
+            'it': 'Conferma eliminazione',
+        },
+        'msg_delete_item': {
+            'en': 'Are you sure you want to delete this item?',
+            'sr': 'Да ли сте сигурни да желите да обришете ову ставку?',
+            'de': 'Sind Sie sicher, dass Sie diesen Artikel löschen möchten?',
+            'es': '¿Está seguro de que desea eliminar este artículo?',
+            'fr': 'Êtes-vous sûr de vouloir supprimer cet article?',
+            'it': 'Sei sicuro di voler eliminare questo articolo?',
+        },
+        'msg_delete_box': {
+            'en': 'Are you sure you want to delete this box and all its items?',
+            'sr': 'Да ли сте сигурни да желите да обришете ову кутију и све њене ставке?',
+            'de': 'Sind Sie sicher, dass Sie diese Box und alle ihre Artikel löschen möchten?',
+            'es': '¿Está seguro de que desea eliminar esta caja y todos sus artículos?',
+            'fr': 'Êtes-vous sûr de vouloir supprimer cette boîte et tous ses articles?',
+            'it': 'Sei sicuro di voler eliminare questa scatola e tutti i suoi articoli?',
+        },
+        'msg_name_empty': {
+            'en': 'Name cannot be empty',
+            'sr': 'Име не може бити празно',
+            'de': 'Name darf nicht leer sein',
+            'es': 'El nombre no puede estar vacío',
+            'fr': 'Le nom ne peut pas être vide',
+            'it': 'Il nome non può essere vuoto',
+        },
+
+        # Table Headers
+        'header_id': {
+            'en': 'ID',
+            'sr': 'ИД',
+            'de': 'ID',
+            'es': 'ID',
+            'fr': 'ID',
+            'it': 'ID',
+        },
+        'header_box_name': {
+            'en': 'Box Name',
+            'sr': 'Име кутије',
+            'de': 'Boxname',
+            'es': 'Nombre de caja',
+            'fr': 'Nom de boîte',
+            'it': 'Nome scatola',
+        },
+        'header_item_name': {
+            'en': 'Item Name',
+            'sr': 'Име ставке',
+            'de': 'Artikelname',
+            'es': 'Nombre de artículo',
+            'fr': 'Nom d\'article',
+            'it': 'Nome articolo',
+        },
+        'header_location': {
+            'en': 'Location',
+            'sr': 'Локација',
+            'de': 'Standort',
+            'es': 'Ubicación',
+            'fr': 'Emplacement',
+            'it': 'Posizione',
+        },
+        'header_quantity': {
+            'en': 'Quantity',
+            'sr': 'Количина',
+            'de': 'Menge',
+            'es': 'Cantidad',
+            'fr': 'Quantité',
+            'it': 'Quantità',
+        },
+        'header_box': {
+            'en': 'Box',
+            'sr': 'Кутија',
+            'de': 'Box',
+            'es': 'Caja',
+            'fr': 'Boîte',
+            'it': 'Scatola',
+        },
+        'header_actions': {
+            'en': 'Actions',
+            'sr': 'Акције',
+            'de': 'Aktionen',
+            'es': 'Acciones',
+            'fr': 'Actions',
+            'it': 'Azioni',
+        },
+
+        # Filter labels
+        'filter_all_boxes': {
+            'en': 'All Boxes',
+            'sr': 'Све кутије',
+            'de': 'Alle Boxen',
+            'es': 'Todas las cajas',
+            'fr': 'Toutes les boîtes',
+            'it': 'Tutte le scatole',
+        },
+        'filter_all_actions': {
+            'en': 'All Actions',
+            'sr': 'Све акције',
+            'de': 'Alle Aktionen',
+            'es': 'Todas las acciones',
+            'fr': 'Toutes les actions',
+            'it': 'Tutte le azioni',
+        },
+        'filter_all_types': {
+            'en': 'All Types',
+            'sr': 'Сви типови',
+            'de': 'Alle Typen',
+            'es': 'Todos los tipos',
+            'fr': 'Tous les types',
+            'it': 'Tutti i tipi',
+        },
+
+        # History Tab
+        'label_timestamp': {
+            'en': 'Timestamp',
+            'sr': 'Време',
+            'de': 'Zeitstempel',
+            'es': 'Marca de tiempo',
+            'fr': 'Horodatage',
+            'it': 'Timestamp',
+        },
+        'label_action': {
+            'en': 'Action',
+            'sr': 'Акција',
+            'de': 'Aktion',
+            'es': 'Acción',
+            'fr': 'Action',
+            'it': 'Azione',
+        },
+        'label_type': {
+            'en': 'Type',
+            'sr': 'Тип',
+            'de': 'Typ',
+            'es': 'Tipo',
+            'fr': 'Type',
+            'it': 'Tipo',
+        },
+        'label_entity': {
+            'en': 'Entity',
+            'sr': 'Ентитет',
+            'de': 'Entität',
+            'es': 'Entidad',
+            'fr': 'Entité',
+            'it': 'Entità',
+        },
+        'label_details': {
+            'en': 'Details',
+            'sr': 'Детаљи',
+            'de': 'Details',
+            'es': 'Detalles',
+            'fr': 'Détails',
+            'it': 'Dettagli',
+        },
+    }
+
+    def __init__(self, language='en'):
+        """Initialize with default language."""
+        self.current_language = language
+
+    def set_language(self, language):
+        """Change the current language."""
+        if language in self.LANGUAGES:
+            self.current_language = language
+            return True
+        return False
+
+    def tr(self, key):
+        """Translate a key to the current language."""
+        if key in self.STRINGS:
+            return self.STRINGS[key].get(self.current_language, self.STRINGS[key].get('en', key))
+        return key
+
+    def get_languages(self):
+        """Get available languages."""
+        return self.LANGUAGES
