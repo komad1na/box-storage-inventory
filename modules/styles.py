@@ -4,18 +4,69 @@ UI Styles and Themes
 
 
 class ModernStyle:
-    """Modern dark theme styles."""
+    """Modern theme styles with dark and light modes."""
 
-    BACKGROUND = "#1a1a1a"
-    SURFACE = "#262626"
-    PRIMARY = "#33b36b"
-    DANGER = "#e64d4d"
-    TEXT = "#ffffff"
-    TEXT_SECONDARY = "#b3b3b3"
-    BORDER = "#404040"
+    # Current theme (will be set dynamically)
+    current_theme = "dark"
 
-    @staticmethod
-    def get_stylesheet():
+    # Dark theme colors
+    DARK = {
+        "BACKGROUND": "#1a1a1a",
+        "SURFACE": "#262626",
+        "PRIMARY": "#33b36b",
+        "DANGER": "#e64d4d",
+        "TEXT": "#ffffff",
+        "TEXT_SECONDARY": "#b3b3b3",
+        "BORDER": "#404040",
+        "HEADER": "#222222",
+        "TAB_SELECTED": "#3498db",
+        "HOVER_PRIMARY": "#2da35f",
+        "PRESSED_PRIMARY": "#258a50",
+        "HOVER_DANGER": "#d63d3d",
+        "HOVER_NEUTRAL": "#707070",
+    }
+
+    # Light theme colors
+    LIGHT = {
+        "BACKGROUND": "#f5f5f5",
+        "SURFACE": "#ffffff",
+        "PRIMARY": "#33b36b",
+        "DANGER": "#e64d4d",
+        "TEXT": "#1a1a1a",
+        "TEXT_SECONDARY": "#666666",
+        "BORDER": "#d0d0d0",
+        "HEADER": "#e8e8e8",
+        "TAB_SELECTED": "#3498db",
+        "HOVER_PRIMARY": "#2da35f",
+        "PRESSED_PRIMARY": "#258a50",
+        "HOVER_DANGER": "#d63d3d",
+        "HOVER_NEUTRAL": "#a0a0a0",
+    }
+
+    # Backward compatibility - default to dark theme
+    BACKGROUND = DARK["BACKGROUND"]
+    SURFACE = DARK["SURFACE"]
+    PRIMARY = DARK["PRIMARY"]
+    DANGER = DARK["DANGER"]
+    TEXT = DARK["TEXT"]
+    TEXT_SECONDARY = DARK["TEXT_SECONDARY"]
+    BORDER = DARK["BORDER"]
+
+    @classmethod
+    def set_theme(cls, theme_name):
+        """Set the current theme (dark or light)."""
+        cls.current_theme = theme_name
+        theme = cls.DARK if theme_name == "dark" else cls.LIGHT
+        cls.BACKGROUND = theme["BACKGROUND"]
+        cls.SURFACE = theme["SURFACE"]
+        cls.PRIMARY = theme["PRIMARY"]
+        cls.DANGER = theme["DANGER"]
+        cls.TEXT = theme["TEXT"]
+        cls.TEXT_SECONDARY = theme["TEXT_SECONDARY"]
+        cls.BORDER = theme["BORDER"]
+
+    @classmethod
+    def get_stylesheet(cls):
         return f"""
             QMainWindow, QDialog {{
                 background-color: {ModernStyle.BACKGROUND};
@@ -59,8 +110,8 @@ class ModernStyle:
             QTableWidget::item {{
                 padding-top: 8px;
                 padding-bottom: 8px;
-                border-right: 1px solid {ModernStyle.BORDER};
-                border-bottom: 1px solid {ModernStyle.BORDER};
+                border-right: 0px solid {ModernStyle.BORDER};
+                border-bottom: 0px solid {ModernStyle.BORDER};
                 border-left: none;
                 border-top: none;
                 outline: none;
@@ -84,7 +135,7 @@ class ModernStyle:
             }}
 
             QHeaderView::section {{
-                background-color: #222222;
+                background-color: {cls.DARK["HEADER"] if cls.current_theme == "dark" else cls.LIGHT["HEADER"]};
                 color: {ModernStyle.TEXT};
                 padding: 6px;
                 border-right: 1px solid {ModernStyle.BORDER};

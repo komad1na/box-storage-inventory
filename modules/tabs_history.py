@@ -84,7 +84,7 @@ class HistoryTab(QWidget):
             4, QHeaderView.ResizeMode.Stretch
         )  # Details stretches
         self.table.setColumnWidth(0, 150)  # Timestamp
-        self.table.setColumnWidth(1, 100)  # Action
+        self.table.setColumnWidth(1, 140)  # Action
         self.table.setColumnWidth(2, 100)  # Type
         self.table.setColumnWidth(3, 180)  # Entity
         self.table.setColumnWidth(5, 50)  # ID
