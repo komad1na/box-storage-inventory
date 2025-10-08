@@ -25,6 +25,7 @@ from .styles import ModernStyle
 from .tabs_boxes import BoxesTab
 from .tabs_items import ItemsTab
 from .tabs_history import HistoryTab
+from .tabs_stats import StatsTab
 from .dialogs import ImportPreviewDialog, HelpDialog
 
 
@@ -33,7 +34,7 @@ class InventoryApp(QMainWindow):
 
     def __init__(self):
         super().__init__()
-        self.setMinimumSize(1200, 700)
+        self.setMinimumSize(1200, 800)
 
         # Setup database
         self.conn = sqlite3.connect("inventory.db")
@@ -387,6 +388,7 @@ class InventoryApp(QMainWindow):
         self.tabs.addTab(BoxesTab(self), tr.tr("tab_boxes"))
         self.tabs.addTab(ItemsTab(self), tr.tr("tab_items"))
         self.tabs.addTab(HistoryTab(self), tr.tr("tab_history"))
+        self.tabs.addTab(StatsTab(self), "Stats")
 
         layout.addWidget(self.tabs)
 
@@ -819,10 +821,16 @@ class InventoryApp(QMainWindow):
                 writer.writerow(["# INSTRUCTIONS:"])
                 writer.writerow(["# 1. Replace example rows with your actual items"])
                 writer.writerow(["# 2. Item Name: Name of the item (required)"])
-                writer.writerow(["# 3. Box: Must match an existing box name exactly (required)"])
-                writer.writerow(["# 4. Quantity: Number of items, must be 1 or higher (required)"])
+                writer.writerow(
+                    ["# 3. Box: Must match an existing box name exactly (required)"]
+                )
+                writer.writerow(
+                    ["# 4. Quantity: Number of items, must be 1 or higher (required)"]
+                )
                 writer.writerow(["# 5. Delete these instruction rows before importing"])
-                writer.writerow(["# 6. Use File -> Import from CSV to import this file"])
+                writer.writerow(
+                    ["# 6. Use File -> Import from CSV to import this file"]
+                )
 
                 if not boxes:
                     writer.writerow([])
@@ -835,7 +843,7 @@ class InventoryApp(QMainWindow):
             self.log_action(
                 action="EXPORT",
                 entity_type="TEMPLATE",
-                details="Exported CSV import template"
+                details="Exported CSV import template",
             )
 
             # Show success message with instructions
@@ -852,11 +860,7 @@ class InventoryApp(QMainWindow):
             if not boxes:
                 instruction_text += "⚠️ NOTE: You have no boxes yet!\nCreate boxes first before importing items."
 
-            QMessageBox.information(
-                self,
-                "Template Exported",
-                instruction_text
-            )
+            QMessageBox.information(self, "Template Exported", instruction_text)
             self.logger.info("=== Export Import Template Complete ===")
 
         except Exception as e:
@@ -991,7 +995,7 @@ class InventoryApp(QMainWindow):
         export_shortcut = QShortcut(QKeySequence("Ctrl+E"), self)
         export_shortcut.activated.connect(self.export_to_csv)
 
-        # Ctrl+1, Ctrl+2, Ctrl+3 - Switch tabs
+        # Ctrl+1, Ctrl+2, Ctrl+3, Ctrl+4 - Switch tabs
         tab1_shortcut = QShortcut(QKeySequence("Ctrl+1"), self)
         tab1_shortcut.activated.connect(lambda: self.tabs.setCurrentIndex(0))
 
@@ -1001,12 +1005,15 @@ class InventoryApp(QMainWindow):
         tab3_shortcut = QShortcut(QKeySequence("Ctrl+3"), self)
         tab3_shortcut.activated.connect(lambda: self.tabs.setCurrentIndex(2))
 
+        tab4_shortcut = QShortcut(QKeySequence("Ctrl+4"), self)
+        tab4_shortcut.activated.connect(lambda: self.tabs.setCurrentIndex(3))
+
         self.logger.info("Keyboard shortcuts configured")
 
     def focus_search(self):
         """Focus the search box in the current tab."""
         current_tab = self.tabs.currentWidget()
-        if hasattr(current_tab, 'search_input'):
+        if hasattr(current_tab, "search_input"):
             current_tab.search_input.setFocus()
             current_tab.search_input.selectAll()
             self.logger.info("Search box focused via keyboard shortcut")
@@ -1017,11 +1024,11 @@ class InventoryApp(QMainWindow):
         current_tab = self.tabs.currentWidget()
 
         if current_index == 0:  # Boxes tab
-            if hasattr(current_tab, 'add_box'):
+            if hasattr(current_tab, "add_box"):
                 current_tab.add_box()
                 self.logger.info("Add box triggered via keyboard shortcut")
         elif current_index == 1:  # Items tab
-            if hasattr(current_tab, 'add_item'):
+            if hasattr(current_tab, "add_item"):
                 current_tab.add_item()
                 self.logger.info("Add item triggered via keyboard shortcut")
 
@@ -1046,14 +1053,14 @@ class InventoryApp(QMainWindow):
         self.log_action(
             action="THEME_CHANGE",
             entity_type="SETTINGS",
-            details=f"Theme changed to {new_theme}"
+            details=f"Theme changed to {new_theme}",
         )
 
         # Inform user
         QMessageBox.information(
             self,
             "Theme Changed",
-            f"Theme changed to {new_theme.capitalize()} mode.\nSome elements may require a restart to fully update."
+            f"Theme changed to {new_theme.capitalize()} mode.\nSome elements may require a restart to fully update.",
         )
 
     def save_theme_preference(self, theme):
@@ -1098,7 +1105,7 @@ class InventoryApp(QMainWindow):
             if result:
                 theme = result[0]
                 ModernStyle.set_theme(theme)
-                if hasattr(self, 'theme_action'):
+                if hasattr(self, "theme_action"):
                     if theme == "light":
                         self.theme_action.setText("Switch to Dark Theme")
                     else:
