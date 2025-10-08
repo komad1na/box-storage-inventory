@@ -26,21 +26,21 @@ class ModernStyle:
         "HOVER_NEUTRAL": "#707070",
     }
 
-    # Light theme colors
+    # Light theme colors - Professional light color palette
     LIGHT = {
-        "BACKGROUND": "#f5f5f5",
-        "SURFACE": "#ffffff",
-        "PRIMARY": "#33b36b",
-        "DANGER": "#e64d4d",
-        "TEXT": "#1a1a1a",
-        "TEXT_SECONDARY": "#666666",
-        "BORDER": "#d0d0d0",
-        "HEADER": "#e8e8e8",
-        "TAB_SELECTED": "#3498db",
-        "HOVER_PRIMARY": "#2da35f",
-        "PRESSED_PRIMARY": "#258a50",
-        "HOVER_DANGER": "#d63d3d",
-        "HOVER_NEUTRAL": "#a0a0a0",
+        "BACKGROUND": "#f8f9fa",        # Soft off-white background
+        "SURFACE": "#ffffff",           # Pure white for cards/tables
+        "PRIMARY": "#28a745",           # Professional green
+        "DANGER": "#dc3545",            # Bootstrap-style red
+        "TEXT": "#212529",              # Near-black for text
+        "TEXT_SECONDARY": "#6c757d",    # Medium gray for secondary text
+        "BORDER": "#dee2e6",            # Light gray borders
+        "HEADER": "#e9ecef",            # Slightly darker than background
+        "TAB_SELECTED": "#0d6efd",      # Professional blue
+        "HOVER_PRIMARY": "#218838",     # Darker green on hover
+        "PRESSED_PRIMARY": "#1e7e34",   # Even darker when pressed
+        "HOVER_DANGER": "#c82333",      # Darker red on hover
+        "HOVER_NEUTRAL": "#5a6268",     # Dark gray on hover
     }
 
     # Backward compatibility - default to dark theme

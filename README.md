@@ -1,11 +1,11 @@
 # Inventory Manager (PyQt6 + SQLite)
 
-**Version 2.1.0** | **Developer: Nemanja Komadina**
+**Version 2.2.0** | **Developer: Nemanja Komadina**
 
-A modern desktop inventory management system built with PyQt6 and SQLite. Features a sleek dark theme interface with comprehensive audit logging, transaction history, multi-language support, and verbose logging.
+A modern desktop inventory management system built with PyQt6 and SQLite. Features dark/light themes, keyboard shortcuts, comprehensive help system, audit logging, multi-language support, and data validation.
 
-![Version](https://img.shields.io/badge/version-2.1.0-blue)
-![Python](https://img.shields.io/badge/python-3.10+-green)
+![Version](https://img.shields.io/badge/version-2.2.0-blue)
+![Python](https://img.shields.io/badge/python-3.13+-green)
 ![License](https://img.shields.io/badge/license-MIT-orange)
 
 ## 🎯 Features
@@ -14,9 +14,11 @@ A modern desktop inventory management system built with PyQt6 and SQLite. Featur
 
 - ✅ **Box Management**: Create, read, update, and delete storage boxes with location tracking
 - ✅ **Item Management**: Track items with quantities assigned to boxes
-- ✅ **Search & Filter**: Advanced filtering by name, box, location, and other criteria
-- ✅ **Modern Dark Theme**: Clean, professional interface with custom styling
+- ✅ **Search & Filter**: Advanced filtering by name, box, location with database indexes for performance
+- 🎨 **Dark & Light Themes**: Toggle between themes with saved preference (Ctrl+T)
+- ⌨️ **Keyboard Shortcuts**: 8 shortcuts for power users (Ctrl+F, Ctrl+N, Ctrl+B, etc.)
 - 🌍 **Multi-Language Support**: 6 languages (English, Serbian, German, Spanish, French, Italian)
+- ❓ **Comprehensive Help**: Built-in help system with 5 sections (F1)
 
 ### Data Management
 
@@ -24,10 +26,12 @@ A modern desktop inventory management system built with PyQt6 and SQLite. Featur
   - Pre-import validation checks
   - Preview dialog before committing
   - Error detection and reporting
+  - **NEW:** Export import template with real box names as examples
 - 📤 **CSV Export**: Export inventory and audit logs to CSV format
 - 💾 **Database Backups**: Automatic backup reminders and manual backup capability
-- 🗄️ **SQLite Database**: Reliable persistence with foreign key constraints
+- 🗄️ **SQLite Database**: Reliable persistence with foreign key constraints and indexes
 - 📍 **Location Tracking**: Track physical storage locations for boxes
+- ✅ **Data Validation**: Input validation prevents empty names, zero quantities, and invalid data
 
 ### Audit & Logging
 
@@ -47,15 +51,34 @@ A modern desktop inventory management system built with PyQt6 and SQLite. Featur
 ### User Experience
 
 - 🎨 **Responsive UI**: Clean table layouts with alternating row colors
-- 🔎 **Real-time Search**: Instant filtering as you type
+- 🌗 **Theme Toggle**: Dark and light themes with persistent preference
+- 🔎 **Real-time Search**: Instant filtering as you type with Ctrl+F shortcut
 - ⚡ **Quick Actions**: In-table edit and delete buttons
-- ⚠️ **Validation**: Input validation with helpful error messages
+- ⚠️ **Validation**: Input validation with helpful error messages (max length, required fields)
 - 🔔 **Backup Reminders**: Automatic 7-day backup notifications
 - 🌐 **Language Selector**: Easy language switching with persistence
+- ⌨️ **Keyboard Navigation**: Full keyboard support with 8 shortcuts
+- 📖 **Integrated Help**: Press F1 for comprehensive documentation
+
+## ⌨️ Keyboard Shortcuts
+
+Speed up your workflow with these keyboard shortcuts:
+
+| Shortcut | Action | Description |
+|----------|--------|-------------|
+| `Ctrl+F` | Focus Search | Jump to search box in current tab |
+| `Ctrl+N` | Add New | Add new box/item (context-aware) |
+| `Ctrl+B` | Backup | Create database backup |
+| `Ctrl+E` | Export | Export inventory to CSV |
+| `Ctrl+T` | Toggle Theme | Switch between dark/light theme |
+| `Ctrl+1` | Boxes Tab | Switch to Boxes tab |
+| `Ctrl+2` | Items Tab | Switch to Items tab |
+| `Ctrl+3` | History Tab | Switch to History tab |
+| `F1` | Help | Open comprehensive help dialog |
 
 ## 📋 Requirements
 
-- Python 3.10+
+- Python 3.13+
 - PyQt6
 
 Install dependencies:
@@ -114,6 +137,17 @@ python gui.py
 5. View detailed change information with timestamps
 
 ### Importing Data
+
+#### Getting a Template
+
+1. Go to **Help → Export CSV Import Template**
+2. Save the template file
+3. The template includes:
+   - Correct headers
+   - Example rows using your actual box names
+   - Detailed instructions as comments
+
+#### Importing Your Data
 
 1. Go to **File → Import from CSV**
 2. Select a CSV file with columns: `Item Name`, `Box`, `Quantity`
@@ -194,8 +228,23 @@ inventory/
 
 **settings**
 
-- `key` (TEXT PRIMARY KEY)
-- `value` (TEXT)
+- `key` (TEXT PRIMARY KEY) - Setting name (e.g., 'language', 'theme')
+- `value` (TEXT) - Setting value
+
+### Database Indexes
+
+For optimal search performance:
+
+- `idx_boxes_name` - Index on boxes.name
+- `idx_boxes_location` - Index on boxes.location
+- `idx_items_name` - Index on items.name
+- `idx_items_box_id` - Index on items.box_id
+
+### Constraints
+
+- Items: `quantity > 0` (enforced at database level)
+- Names: max 255 characters
+- Foreign keys enabled for referential integrity
 
 ## 🌍 Supported Languages
 
@@ -208,13 +257,17 @@ inventory/
 
 ## 🎨 UI Features
 
-- **Modern Dark Theme**: Custom color scheme with green accents
+- **Dark & Light Themes**: Toggle between themes with Ctrl+T
+  - Dark: Custom color scheme with green accents
+  - Light: Clean, professional light theme
+  - Theme preference saved automatically
 - **Responsive Tables**: Auto-sizing columns with fixed action columns
 - **Color-Coded Actions**: Visual distinction between create (green), update (blue), and delete (red)
 - **Inline Editing**: Quick edit/delete buttons in each row
 - **No Selection Artifacts**: Clean focus states without distracting borders
 - **Consistent Borders**: Uniform gridlines throughout tables
 - **Translated UI**: All menus, buttons, and labels support multiple languages
+- **Custom Icon**: Storage unit themed application icon
 
 ## 📊 Logging Features
 
@@ -281,7 +334,19 @@ YYYY-MM-DD HH:MM:SS,mmm - LEVEL - MESSAGE
 
 ## 📝 Version History
 
-### Version 2.1.0 (Current)
+### Version 2.2.0 (Current)
+
+- 🎨 **Added Dark & Light Themes**: Toggle between themes with Ctrl+T, preference saved automatically
+- ⌨️ **Added Keyboard Shortcuts**: 8 shortcuts for power users (Ctrl+F, N, B, E, T, 1-3, F1)
+- 📖 **Added Comprehensive Help System**: Built-in documentation with 5 sections (Getting Started, Shortcuts, Features, Tips, Database Info)
+- 📄 **Added CSV Import Template Export**: Generate template files with real box names as examples
+- 🗄️ **Added Database Indexes**: Performance optimization for searches (boxes.name, items.name, locations, box_id)
+- ✅ **Enhanced Data Validation**: Input validation for names (max 255 chars), quantities (>0), required fields
+- 🖼️ **Added Custom Application Icon**: Storage unit themed SVG/ICO icon
+- 🔧 **Database Constraints**: Quantity check constraint at database level
+- 📊 **Improved Logging**: Theme changes, help dialog usage, template exports
+
+### Version 2.1.0
 
 - 🌍 **Added multi-language support**: 6 languages with persistent preferences
 - 📝 **Added comprehensive verbose logging**: Track all application operations
@@ -325,10 +390,13 @@ MIT License - Feel free to use this project for personal or commercial purposes.
 
 ## 💡 Tips
 
+- **Press F1 for Help**: Comprehensive built-in documentation with all features explained
+- **Use Keyboard Shortcuts**: Speed up workflow with Ctrl+F (search), Ctrl+N (add), Ctrl+B (backup)
+- **Toggle Theme**: Press Ctrl+T to switch between dark and light themes
+- **Get Import Template**: Help → Export CSV Import Template for easy bulk imports
 - **Backup Regularly**: Use the automatic backup feature to protect your data
 - **Review History**: Check the History tab to audit all changes
-- **Use Import**: Bulk import items using CSV for faster setup
-- **Search Effectively**: Use filters to quickly find items or boxes
+- **Search Effectively**: Use filters and Ctrl+F to quickly find items or boxes
 - **Export Reports**: Export audit logs for external analysis
 - **Check Logs**: Review daily log files in `logs/` for troubleshooting
 - **Track Locations**: Use the location field to remember where boxes are stored
