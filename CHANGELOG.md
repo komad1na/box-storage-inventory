@@ -5,6 +5,25 @@ All notable changes to the Inventory Manager project will be documented in this 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.3.3] - 2025-10-09
+
+### Added
+- 📚 **CONTRIBUTING.md**: Comprehensive contribution guide with technical documentation
+  - Complete file structure and architecture details
+  - Database schema documentation (tables, indexes, constraints)
+  - Translation and theme modification guides
+  - Testing checklist and code style guidelines
+  - Development setup and pull request process
+
+### Changed
+- 📖 **README.md**: Cleaned up and restructured for better readability
+  - Removed technical details (moved to CONTRIBUTING.md)
+  - More user-focused content
+  - Added links to CONTRIBUTING.md for developers
+
+### Improved
+- 📂 **Documentation Structure**: Better separation between user docs (README) and developer docs (CONTRIBUTING)
+
 ## [2.3.2] - 2025-10-09
 
 ### Added

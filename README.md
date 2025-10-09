@@ -1,10 +1,10 @@
 # Inventory Manager (PyQt6 + SQLite)
 
-**Version 2.3.2** | **Developer: Nemanja Komadina**
+**Version 2.3.3** | **Developer: Nemanja Komadina**
 
 A modern desktop inventory management system built with PyQt6 and SQLite. Features dark/light themes, keyboard shortcuts, comprehensive help system, audit logging, multi-language support, and data validation.
 
-![Version](https://img.shields.io/badge/version-2.3.2-blue)
+![Version](https://img.shields.io/badge/version-2.3.3-blue)
 ![Python](https://img.shields.io/badge/python-3.13+-green)
 ![License](https://img.shields.io/badge/license-CC--BY--NC--SA--4.0-orange)
 
@@ -64,17 +64,17 @@ A modern desktop inventory management system built with PyQt6 and SQLite. Featur
 
 Speed up your workflow with these keyboard shortcuts:
 
-| Shortcut | Action | Description |
-|----------|--------|-------------|
+| Shortcut | Action       | Description                       |
+| -------- | ------------ | --------------------------------- |
 | `Ctrl+F` | Focus Search | Jump to search box in current tab |
-| `Ctrl+N` | Add New | Add new box/item (context-aware) |
-| `Ctrl+B` | Backup | Create database backup |
-| `Ctrl+E` | Export | Export inventory to CSV |
-| `Ctrl+T` | Toggle Theme | Switch between dark/light theme |
-| `Ctrl+1` | Boxes Tab | Switch to Boxes tab |
-| `Ctrl+2` | Items Tab | Switch to Items tab |
-| `Ctrl+3` | History Tab | Switch to History tab |
-| `F1` | Help | Open comprehensive help dialog |
+| `Ctrl+N` | Add New      | Add new box/item (context-aware)  |
+| `Ctrl+B` | Backup       | Create database backup            |
+| `Ctrl+E` | Export       | Export inventory to CSV           |
+| `Ctrl+T` | Toggle Theme | Switch between dark/light theme   |
+| `Ctrl+1` | Boxes Tab    | Switch to Boxes tab               |
+| `Ctrl+2` | Items Tab    | Switch to Items tab               |
+| `Ctrl+3` | History Tab  | Switch to History tab             |
+| `F1`     | Help         | Open comprehensive help dialog    |
 
 ## 📋 Requirements
 
@@ -174,78 +174,6 @@ Nails,Storage 1,100
 - **Automatic Reminders**: Prompted if no backup in 7 days
 - Backups stored in `backup/` folder with timestamps
 
-## 📁 File Structure
-
-```
-inventory/
-├── gui.py                       # Application entry point
-├── cli.py                       # CLI version (legacy)
-├── modules/                     # Modular codebase
-│   ├── __init__.py             # Package initialization
-│   ├── app.py                   # Main application window
-│   ├── styles.py                # UI themes and styles
-│   ├── dialogs.py               # Dialog windows
-│   ├── tabs_items.py            # Items tab
-│   ├── tabs_boxes.py            # Boxes tab
-│   ├── tabs_history.py          # History/audit log tab
-│   └── translations.py          # Multi-language support
-├── inventory.db                 # SQLite database (auto-created)
-├── backup/                      # Database backups (auto-created)
-├── logs/                        # Daily log files (auto-created)
-│   └── inventory_YYYY-MM-DD.log
-├── requirements.txt             # Python dependencies
-└── README.md                    # This file
-```
-
-## 🗃️ Database Schema
-
-### Tables
-
-**boxes**
-
-- `id` (INTEGER PRIMARY KEY)
-- `name` (TEXT NOT NULL)
-- `location` (TEXT) - Physical storage location
-
-**items**
-
-- `id` (INTEGER PRIMARY KEY)
-- `name` (TEXT NOT NULL)
-- `box_id` (INTEGER, FOREIGN KEY → boxes.id)
-- `quantity` (INTEGER DEFAULT 1)
-
-**audit_logs**
-
-- `id` (INTEGER PRIMARY KEY)
-- `timestamp` (TEXT)
-- `action` (TEXT) - CREATE/UPDATE/DELETE/IMPORT/EXPORT/BACKUP/SHUTDOWN/LANGUAGE_CHANGE
-- `entity_type` (TEXT) - ITEM/BOX/INVENTORY/DATABASE/APPLICATION/SETTINGS
-- `entity_id` (INTEGER)
-- `entity_name` (TEXT)
-- `details` (TEXT)
-- `old_value` (TEXT)
-- `new_value` (TEXT)
-
-**settings**
-
-- `key` (TEXT PRIMARY KEY) - Setting name (e.g., 'language', 'theme')
-- `value` (TEXT) - Setting value
-
-### Database Indexes
-
-For optimal search performance:
-
-- `idx_boxes_name` - Index on boxes.name
-- `idx_boxes_location` - Index on boxes.location
-- `idx_items_name` - Index on items.name
-- `idx_items_box_id` - Index on items.box_id
-
-### Constraints
-
-- Items: `quantity > 0` (enforced at database level)
-- Names: max 255 characters
-- Foreign keys enabled for referential integrity
-
 ## 🌍 Supported Languages
 
 - 🇬🇧 English
@@ -254,20 +182,6 @@ For optimal search performance:
 - 🇪🇸 Español (Spanish)
 - 🇫🇷 Français (French)
 - 🇮🇹 Italiano (Italian)
-
-## 🎨 UI Features
-
-- **Dark & Light Themes**: Toggle between themes with Ctrl+T
-  - Dark: Custom color scheme with green accents
-  - Light: Clean, professional light theme
-  - Theme preference saved automatically
-- **Responsive Tables**: Auto-sizing columns with fixed action columns
-- **Color-Coded Actions**: Visual distinction between create (green), update (blue), and delete (red)
-- **Inline Editing**: Quick edit/delete buttons in each row
-- **No Selection Artifacts**: Clean focus states without distracting borders
-- **Consistent Borders**: Uniform gridlines throughout tables
-- **Translated UI**: All menus, buttons, and labels support multiple languages
-- **Custom Icon**: Storage unit themed application icon
 
 ## 📊 Logging Features
 
@@ -300,14 +214,6 @@ The application logs comprehensive information to help track all operations:
 YYYY-MM-DD HH:MM:SS,mmm - LEVEL - MESSAGE
 ```
 
-**Example:**
-
-```
-2025-10-07 15:15:42,318 - INFO - === Database Setup Started ===
-2025-10-07 15:15:42,319 - INFO - Database statistics: 5 boxes, 102 items, 69 audit logs
-2025-10-07 15:15:42,319 - INFO - Language set to: en (English)
-```
-
 ## 🔧 Troubleshooting
 
 ### Import Errors
@@ -321,39 +227,24 @@ YYYY-MM-DD HH:MM:SS,mmm - LEVEL - MESSAGE
 - Check that `inventory.db` has write permissions
 - Review logs in `logs/` folder for detailed error messages
 
-### Display Issues
-
-- Ensure PyQt6 is properly installed
-- Try restarting the application
-
-### Language Not Changing
-
-- Make sure to restart the application after changing language
-- Check `logs/` folder for language change confirmation
-- Language preference is stored in the database `settings` table
-
 ## 📝 Version History
 
 See [CHANGELOG.md](CHANGELOG.md) for detailed version history and changes.
 
 ## 🤝 Contributing
 
-Feel free to submit issues, fork the repository, and create pull requests for any improvements.
+We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for:
+- Project structure and architecture
+- Database schema details
+- Development setup instructions
+- Code style guidelines
+- Pull request process
 
-Please read our [Code of Conduct](CODE_OF_CONDUCT.md) before contributing.
+Also read our [Code of Conduct](CODE_OF_CONDUCT.md) before contributing.
 
 ## 📄 License
 
 This work is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
-
-**You are free to:**
-- Share — copy and redistribute the material in any medium or format
-- Adapt — remix, transform, and build upon the material
-
-**Under the following terms:**
-- Attribution — You must give appropriate credit
-- NonCommercial — You may not use the material for commercial purposes
-- ShareAlike — If you remix, transform, or build upon the material, you must distribute your contributions under the same license
 
 See [LICENSE](LICENSE) for full details.
 
