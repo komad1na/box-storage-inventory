@@ -1,12 +1,12 @@
 # Inventory Manager (PyQt6 + SQLite)
 
-**Version 2.2.0** | **Developer: Nemanja Komadina**
+**Version 2.3.1** | **Developer: Nemanja Komadina**
 
 A modern desktop inventory management system built with PyQt6 and SQLite. Features dark/light themes, keyboard shortcuts, comprehensive help system, audit logging, multi-language support, and data validation.
 
-![Version](https://img.shields.io/badge/version-2.2.0-blue)
+![Version](https://img.shields.io/badge/version-2.3.1-blue)
 ![Python](https://img.shields.io/badge/python-3.13+-green)
-![License](https://img.shields.io/badge/license-MIT-orange)
+![License](https://img.shields.io/badge/license-CC--BY--NC--SA--4.0-orange)
 
 ## 🎯 Features
 
@@ -334,59 +334,28 @@ YYYY-MM-DD HH:MM:SS,mmm - LEVEL - MESSAGE
 
 ## 📝 Version History
 
-### Version 2.2.0 (Current)
-
-- 🎨 **Added Dark & Light Themes**: Toggle between themes with Ctrl+T, preference saved automatically
-- ⌨️ **Added Keyboard Shortcuts**: 8 shortcuts for power users (Ctrl+F, N, B, E, T, 1-3, F1)
-- 📖 **Added Comprehensive Help System**: Built-in documentation with 5 sections (Getting Started, Shortcuts, Features, Tips, Database Info)
-- 📄 **Added CSV Import Template Export**: Generate template files with real box names as examples
-- 🗄️ **Added Database Indexes**: Performance optimization for searches (boxes.name, items.name, locations, box_id)
-- ✅ **Enhanced Data Validation**: Input validation for names (max 255 chars), quantities (>0), required fields
-- 🖼️ **Added Custom Application Icon**: Storage unit themed SVG/ICO icon
-- 🔧 **Database Constraints**: Quantity check constraint at database level
-- 📊 **Improved Logging**: Theme changes, help dialog usage, template exports
-
-### Version 2.1.0
-
-- 🌍 **Added multi-language support**: 6 languages with persistent preferences
-- 📝 **Added comprehensive verbose logging**: Track all application operations
-- 📍 **Added box location tracking**: Store physical location of boxes
-- 🎨 **Updated UI with translations**: All menus, tabs, and buttons support multiple languages
-- 🔍 **Enhanced search**: Filter boxes by both name and location
-- 📊 **Improved logging**: Database operations, dialog interactions, language changes
-- ✨ **Better developer experience**: Detailed logs for debugging and auditing
-
-### Version 2.0.0
-
-- ✨ Added comprehensive audit logging system
-- ✨ Added History tab with filtering and statistics
-- ✨ Added CSV import with validation and preview
-- ✨ Added CSV export for both inventory and logs
-- ✨ Added file-based logging to daily log files
-- ✨ Added version tracking and About dialog
-- ✨ **Refactored codebase into modular architecture**
-- ✨ Improved UI with consistent borders and focus states
-- 📦 **New**: Organized code into `modules/` folder for better maintainability
-
-### Version 1.0.0
-
-- Initial GUI release with basic CRUD operations
-- Box and Item management
-- Search and filter functionality
-- Dark theme UI
-
-### Version 0.5.0
-
-- Initial CLI version with CRUD operations
-- Colored console text
+See [CHANGELOG.md](CHANGELOG.md) for detailed version history and changes.
 
 ## 🤝 Contributing
 
 Feel free to submit issues, fork the repository, and create pull requests for any improvements.
 
+Please read our [Code of Conduct](CODE_OF_CONDUCT.md) before contributing.
+
 ## 📄 License
 
-MIT License - Feel free to use this project for personal or commercial purposes.
+This work is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
+
+**You are free to:**
+- Share — copy and redistribute the material in any medium or format
+- Adapt — remix, transform, and build upon the material
+
+**Under the following terms:**
+- Attribution — You must give appropriate credit
+- NonCommercial — You may not use the material for commercial purposes
+- ShareAlike — If you remix, transform, or build upon the material, you must distribute your contributions under the same license
+
+See [LICENSE](LICENSE) for full details.
 
 ## 💡 Tips
 

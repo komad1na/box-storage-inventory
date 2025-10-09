@@ -1,10 +1,10 @@
 """
 Inventory Manager Modules
-Version: 2.3.0
+Version: 2.3.1
 Developer: Nemanja Komadina
 """
 
-__version__ = "2.3.0"
+__version__ = "2.3.1"
 __app_name__ = "Inventory Manager"
 __developer__ = "Nemanja Komadina"
 
