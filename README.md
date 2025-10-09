@@ -1,10 +1,10 @@
 # Inventory Manager (PyQt6 + SQLite)
 
-**Version 2.3.1** | **Developer: Nemanja Komadina**
+**Version 2.3.2** | **Developer: Nemanja Komadina**
 
 A modern desktop inventory management system built with PyQt6 and SQLite. Features dark/light themes, keyboard shortcuts, comprehensive help system, audit logging, multi-language support, and data validation.
 
-![Version](https://img.shields.io/badge/version-2.3.1-blue)
+![Version](https://img.shields.io/badge/version-2.3.2-blue)
 ![Python](https://img.shields.io/badge/python-3.13+-green)
 ![License](https://img.shields.io/badge/license-CC--BY--NC--SA--4.0-orange)
 

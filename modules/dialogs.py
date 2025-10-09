@@ -125,25 +125,25 @@ class EditItemDialog(QDialog):
         name = self.name_input.text().strip()
         if not name:
             self.logger.warning("Item save cancelled: name is empty")
-            QMessageBox.warning(self, "Error", "Item name cannot be empty")
+            QMessageBox.warning(self, self.translator.tr('msg_error'), self.translator.tr('msg_item_name_empty'))
             return
 
         box_id = self.box_combo.currentData()
         if not box_id:
             self.logger.warning("Item save cancelled: no box selected")
-            QMessageBox.warning(self, "Error", "Please select a box")
+            QMessageBox.warning(self, self.translator.tr('msg_error'), self.translator.tr('msg_select_box'))
             return
 
         quantity = self.quantity_spin.value()
         if quantity < 1:
             self.logger.warning(f"Item save cancelled: invalid quantity {quantity}")
-            QMessageBox.warning(self, "Error", "Quantity must be at least 1")
+            QMessageBox.warning(self, self.translator.tr('msg_error'), self.translator.tr('msg_quantity_min'))
             return
 
         # Validate name length
         if len(name) > 255:
             self.logger.warning(f"Item save cancelled: name too long ({len(name)} characters)")
-            QMessageBox.warning(self, "Error", "Item name is too long (max 255 characters)")
+            QMessageBox.warning(self, self.translator.tr('msg_error'), self.translator.tr('msg_item_name_too_long'))
             return
 
         self.logger.info(f"Item dialog saved: name='{name}', box_id={box_id}, quantity={quantity}")
@@ -352,13 +352,13 @@ class EditBoxDialog(QDialog):
         name = self.name_input.text().strip()
         if not name:
             self.logger.warning("Box save cancelled: name is empty")
-            QMessageBox.warning(self, "Error", "Box name cannot be empty")
+            QMessageBox.warning(self, self.translator.tr('msg_error'), self.translator.tr('msg_box_name_empty'))
             return
 
         # Validate name length
         if len(name) > 255:
             self.logger.warning(f"Box save cancelled: name too long ({len(name)} characters)")
-            QMessageBox.warning(self, "Error", "Box name is too long (max 255 characters)")
+            QMessageBox.warning(self, self.translator.tr('msg_error'), self.translator.tr('msg_box_name_too_long'))
             return
 
         location = self.location_input.text().strip()
@@ -366,7 +366,7 @@ class EditBoxDialog(QDialog):
         # Validate location length
         if location and len(location) > 255:
             self.logger.warning(f"Box save cancelled: location too long ({len(location)} characters)")
-            QMessageBox.warning(self, "Error", "Location is too long (max 255 characters)")
+            QMessageBox.warning(self, self.translator.tr('msg_error'), self.translator.tr('msg_location_too_long'))
             return
 
         self.logger.info(f"Box dialog saved: name='{name}', location='{location}'")

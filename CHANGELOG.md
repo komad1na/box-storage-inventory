@@ -5,6 +5,20 @@ All notable changes to the Inventory Manager project will be documented in this 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.3.2] - 2025-10-09
+
+### Added
+- 🌍 **Complete Translation Coverage**: Added translations for all remaining UI strings
+  - Statistics tab fully translated (titles, charts, labels)
+  - All validation error messages translated
+  - CSV import/export messages translated
+  - Help menu items translated
+
+### Improved
+- 🌐 **Full Internationalization**: Application now 100% translatable in all 6 supported languages
+- 📊 **Statistics Tab Localization**: All chart titles, axis labels, and summary cards support multiple languages
+- ✅ **Error Message Localization**: All validation and error messages now display in user's selected language
+
 ## [2.3.1] - 2025-10-09
 
 ### Added

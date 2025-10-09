@@ -388,7 +388,7 @@ class InventoryApp(QMainWindow):
         self.tabs.addTab(BoxesTab(self), tr.tr("tab_boxes"))
         self.tabs.addTab(ItemsTab(self), tr.tr("tab_items"))
         self.tabs.addTab(HistoryTab(self), tr.tr("tab_history"))
-        self.tabs.addTab(StatsTab(self), "Stats")
+        self.tabs.addTab(StatsTab(self), tr.tr("tab_stats"))
 
         layout.addWidget(self.tabs)
 
@@ -651,7 +651,7 @@ class InventoryApp(QMainWindow):
 
             # Show preview dialog
             if not import_data:
-                QMessageBox.warning(self, "No Data", "No data found in CSV file")
+                QMessageBox.warning(self, self.translator.tr('msg_no_data_csv'), self.translator.tr('msg_no_data_found'))
                 return
 
             preview_dialog = ImportPreviewDialog(self, import_data, validation_errors)
@@ -860,7 +860,7 @@ class InventoryApp(QMainWindow):
             if not boxes:
                 instruction_text += "⚠️ NOTE: You have no boxes yet!\nCreate boxes first before importing items."
 
-            QMessageBox.information(self, "Template Exported", instruction_text)
+            QMessageBox.information(self, self.translator.tr('msg_template_exported'), instruction_text)
             self.logger.info("=== Export Import Template Complete ===")
 
         except Exception as e:

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Inventory Manager
-Version: 2.3.1
+Version: 2.3.2
 Developer: Nemanja Komadina
 
 A modern desktop inventory management system with audit logging, transaction history,

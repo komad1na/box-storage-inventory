@@ -20,6 +20,7 @@ from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QFont
 
 from .styles import ModernStyle
+from . import get_translator
 
 
 class StatsTab(QWidget):
@@ -28,6 +29,7 @@ class StatsTab(QWidget):
     def __init__(self, parent):
         super().__init__(parent)
         self.parent = parent
+        self.translator = get_translator()
         self.setup_ui()
 
     def setup_ui(self):
@@ -44,7 +46,7 @@ class StatsTab(QWidget):
         main_layout.setContentsMargins(10, 10, 10, 10)
 
         # Title
-        title = QLabel("Inventory Statistics")
+        title = QLabel(self.translator.tr('stats_title'))
         title.setFont(QFont("Arial", 18, QFont.Weight.Bold))
         main_layout.addWidget(title)
 
@@ -69,11 +71,11 @@ class StatsTab(QWidget):
         summary_layout.setSpacing(15)
 
         self.total_boxes_card = self.create_stat_card(
-            "Total Boxes", "0", ModernStyle.PRIMARY
+            self.translator.tr('stats_total_boxes'), "0", ModernStyle.PRIMARY
         )
-        self.total_items_card = self.create_stat_card("Total Items", "0", "#0d6efd")
+        self.total_items_card = self.create_stat_card(self.translator.tr('stats_total_items'), "0", "#0d6efd")
         self.total_quantity_card = self.create_stat_card(
-            "Total Quantity", "0", "#6610f2"
+            self.translator.tr('stats_total_quantity'), "0", "#6610f2"
         )
 
         summary_layout.addWidget(self.total_boxes_card)
@@ -293,7 +295,7 @@ class StatsTab(QWidget):
             ax.text(
                 0.5,
                 0.5,
-                "No data available\nAdd boxes and items to see statistics",
+                self.translator.tr('stats_no_data'),
                 ha="center",
                 va="center",
                 fontsize=11,
@@ -337,12 +339,12 @@ class StatsTab(QWidget):
                 color=text_color,
             )
 
-        ax.set_xlabel("Box Name", fontsize=11, color=text_color, fontweight="bold")
+        ax.set_xlabel(self.translator.tr('stats_box_name'), fontsize=11, color=text_color, fontweight="bold")
         ax.set_ylabel(
-            "Number of Items", fontsize=11, color=text_color, fontweight="bold"
+            self.translator.tr('stats_number_of_items'), fontsize=11, color=text_color, fontweight="bold"
         )
         ax.set_title(
-            "Items per Box (Top 10)",
+            self.translator.tr('stats_items_per_box'),
             fontsize=13,
             fontweight="bold",
             color=text_color,
@@ -391,7 +393,7 @@ class StatsTab(QWidget):
             ax.text(
                 0.5,
                 0.5,
-                "No data available\nAdd boxes and items to see statistics",
+                self.translator.tr('stats_no_data'),
                 ha="center",
                 va="center",
                 fontsize=11,
@@ -435,12 +437,12 @@ class StatsTab(QWidget):
                 color=text_color,
             )
 
-        ax.set_xlabel("Box Name", fontsize=11, color=text_color, fontweight="bold")
+        ax.set_xlabel(self.translator.tr('stats_box_name'), fontsize=11, color=text_color, fontweight="bold")
         ax.set_ylabel(
-            "Total Quantity", fontsize=11, color=text_color, fontweight="bold"
+            self.translator.tr('stats_total_quantity'), fontsize=11, color=text_color, fontweight="bold"
         )
         ax.set_title(
-            "Total Quantity per Box (Top 10)",
+            self.translator.tr('stats_quantity_per_box'),
             fontsize=13,
             fontweight="bold",
             color=text_color,
