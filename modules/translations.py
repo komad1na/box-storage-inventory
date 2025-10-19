@@ -209,6 +209,38 @@ class Translations:
             'fr': 'Rafraîchir',
             'it': 'Aggiorna',
         },
+        'btn_close': {
+            'en': 'Close',
+            'sr': 'Затвори',
+            'de': 'Schließen',
+            'es': 'Cerrar',
+            'fr': 'Fermer',
+            'it': 'Chiudi',
+        },
+        'btn_save': {
+            'en': 'Save',
+            'sr': 'Сачувај',
+            'de': 'Speichern',
+            'es': 'Guardar',
+            'fr': 'Enregistrer',
+            'it': 'Salva',
+        },
+        'btn_fix_errors': {
+            'en': 'Fix Errors First',
+            'sr': 'Прво исправите грешке',
+            'de': 'Fehler zuerst beheben',
+            'es': 'Corregir errores primero',
+            'fr': 'Corriger les erreurs d\'abord',
+            'it': 'Correggi prima gli errori',
+        },
+        'btn_import': {
+            'en': 'Import',
+            'sr': 'Увези',
+            'de': 'Importieren',
+            'es': 'Importar',
+            'fr': 'Importer',
+            'it': 'Importa',
+        },
 
         # Labels
         'label_box_name': {
@@ -514,6 +546,14 @@ class Translations:
             'es': 'Acciones',
             'fr': 'Actions',
             'it': 'Azioni',
+        },
+        'header_row': {
+            'en': 'Row',
+            'sr': 'Ред',
+            'de': 'Zeile',
+            'es': 'Fila',
+            'fr': 'Ligne',
+            'it': 'Riga',
         },
 
         # Filter labels

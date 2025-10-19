@@ -21,6 +21,7 @@ from PyQt6.QtCore import Qt
 
 from .styles import ModernStyle
 from .dialogs import EditItemDialog
+from . import get_translator
 
 
 class ItemsTab(QWidget):
@@ -28,6 +29,7 @@ class ItemsTab(QWidget):
 
     def __init__(self, parent):
         super().__init__(parent)
+        self.translator = get_translator()
         self.parent = parent
         self.setup_ui()
 
@@ -38,22 +40,22 @@ class ItemsTab(QWidget):
         filter_layout = QHBoxLayout()
 
         self.search_input = QLineEdit()
-        self.search_input.setPlaceholderText("Search items...")
+        self.search_input.setPlaceholderText(self.translator.tr('placeholder_search_items'))
         self.search_input.textChanged.connect(self.load_items)
         filter_layout.addWidget(self.search_input, 2)
 
         self.box_filter = QComboBox()
-        self.box_filter.addItem("All Boxes", None)
+        self.box_filter.addItem(self.translator.tr('filter_all_boxes'), None)
         self.load_box_filter()
         self.box_filter.currentIndexChanged.connect(self.load_items)
         filter_layout.addWidget(self.box_filter, 2)
 
-        clear_btn = QPushButton("Clear Filters")
+        clear_btn = QPushButton(self.translator.tr('btn_clear_filters'))
         clear_btn.setProperty("class", "neutral")
         clear_btn.clicked.connect(self.clear_filters)
         filter_layout.addWidget(clear_btn, 1)
 
-        add_btn = QPushButton("+ Add Item")
+        add_btn = QPushButton(self.translator.tr('btn_add_item'))
         add_btn.clicked.connect(self.add_item)
         filter_layout.addWidget(add_btn, 1)
 
@@ -63,9 +65,13 @@ class ItemsTab(QWidget):
         self.table = QTableWidget()
         self.table.setColumnCount(5)
 
-        self.table.setHorizontalHeaderLabels(
-            ["ID", "Item Name", "Box", "Quantity", "Actions"]
-        )
+        self.table.setHorizontalHeaderLabels([
+            self.translator.tr('header_id'),
+            self.translator.tr('header_item_name'),
+            self.translator.tr('header_box'),
+            self.translator.tr('header_quantity'),
+            self.translator.tr('header_actions')
+        ])
 
         # Set column widths
         header = self.table.horizontalHeader()
@@ -93,6 +99,10 @@ class ItemsTab(QWidget):
 
     def load_box_filter(self):
         """Load boxes into filter dropdown."""
+        # Clear existing items except "All Boxes"
+        while self.box_filter.count() > 1:
+            self.box_filter.removeItem(1)
+
         self.parent.cursor.execute("SELECT id, name FROM boxes ORDER BY name")
         boxes = self.parent.cursor.fetchall()
 
@@ -158,7 +168,7 @@ class ItemsTab(QWidget):
             actions_layout.setSpacing(5)
             actions_layout.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
-            edit_btn = QPushButton("Edit")
+            edit_btn = QPushButton(self.translator.tr('btn_edit'))
             edit_btn.setFixedSize(45, 22)
             edit_btn.setStyleSheet(
                 f"""
@@ -182,7 +192,7 @@ class ItemsTab(QWidget):
             )
             actions_layout.addWidget(edit_btn)
 
-            delete_btn = QPushButton("Del")
+            delete_btn = QPushButton(self.translator.tr('btn_delete'))
             delete_btn.setFixedSize(45, 22)
             delete_btn.setStyleSheet(
                 f"""

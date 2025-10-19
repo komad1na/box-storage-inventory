@@ -46,7 +46,7 @@ class StatsTab(QWidget):
         main_layout.setContentsMargins(10, 10, 10, 10)
 
         # Title
-        title = QLabel(self.translator.tr('stats_title'))
+        title = QLabel(self.translator.tr("stats_title"))
         title.setFont(QFont("Arial", 18, QFont.Weight.Bold))
         main_layout.addWidget(title)
 
@@ -71,11 +71,13 @@ class StatsTab(QWidget):
         summary_layout.setSpacing(15)
 
         self.total_boxes_card = self.create_stat_card(
-            self.translator.tr('stats_total_boxes'), "0", ModernStyle.PRIMARY
+            self.translator.tr("stats_total_boxes"), "0", ModernStyle.PRIMARY
         )
-        self.total_items_card = self.create_stat_card(self.translator.tr('stats_total_items'), "0", "#0d6efd")
+        self.total_items_card = self.create_stat_card(
+            self.translator.tr("stats_total_items"), "0", "#0d6efd"
+        )
         self.total_quantity_card = self.create_stat_card(
-            self.translator.tr('stats_total_quantity'), "0", "#6610f2"
+            self.translator.tr("stats_total_quantity"), "0", "#6610f2"
         )
 
         summary_layout.addWidget(self.total_boxes_card)
@@ -112,10 +114,7 @@ class StatsTab(QWidget):
 
         self.setLayout(main_layout)
 
-        # Load initial data
-        print("StatsTab: Loading initial statistics...")
         self.refresh_stats()
-        print("StatsTab: Initial statistics loaded")
 
     def create_stat_card(self, title, value, color):
         """Create a flat minimalistic statistics card widget."""
@@ -199,10 +198,6 @@ class StatsTab(QWidget):
         try:
             # Get statistics from database
             stats = self.get_statistics()
-
-            print(
-                f"Stats loaded: Boxes={stats['total_boxes']}, Items={stats['total_items']}, Qty={stats['total_quantity']}"
-            )
 
             # Update summary cards
             self.total_boxes_card.value_label.setText(str(stats["total_boxes"]))
@@ -295,7 +290,7 @@ class StatsTab(QWidget):
             ax.text(
                 0.5,
                 0.5,
-                self.translator.tr('stats_no_data'),
+                self.translator.tr("stats_no_data"),
                 ha="center",
                 va="center",
                 fontsize=11,
@@ -339,12 +334,20 @@ class StatsTab(QWidget):
                 color=text_color,
             )
 
-        ax.set_xlabel(self.translator.tr('stats_box_name'), fontsize=11, color=text_color, fontweight="bold")
+        ax.set_xlabel(
+            self.translator.tr("stats_box_name"),
+            fontsize=11,
+            color=text_color,
+            fontweight="bold",
+        )
         ax.set_ylabel(
-            self.translator.tr('stats_number_of_items'), fontsize=11, color=text_color, fontweight="bold"
+            self.translator.tr("stats_number_of_items"),
+            fontsize=11,
+            color=text_color,
+            fontweight="bold",
         )
         ax.set_title(
-            self.translator.tr('stats_items_per_box'),
+            self.translator.tr("stats_items_per_box"),
             fontsize=13,
             fontweight="bold",
             color=text_color,
@@ -393,7 +396,7 @@ class StatsTab(QWidget):
             ax.text(
                 0.5,
                 0.5,
-                self.translator.tr('stats_no_data'),
+                self.translator.tr("stats_no_data"),
                 ha="center",
                 va="center",
                 fontsize=11,
@@ -437,12 +440,20 @@ class StatsTab(QWidget):
                 color=text_color,
             )
 
-        ax.set_xlabel(self.translator.tr('stats_box_name'), fontsize=11, color=text_color, fontweight="bold")
+        ax.set_xlabel(
+            self.translator.tr("stats_box_name"),
+            fontsize=11,
+            color=text_color,
+            fontweight="bold",
+        )
         ax.set_ylabel(
-            self.translator.tr('stats_total_quantity'), fontsize=11, color=text_color, fontweight="bold"
+            self.translator.tr("stats_total_quantity"),
+            fontsize=11,
+            color=text_color,
+            fontweight="bold",
         )
         ax.set_title(
-            self.translator.tr('stats_quantity_per_box'),
+            self.translator.tr("stats_quantity_per_box"),
             fontsize=13,
             fontweight="bold",
             color=text_color,

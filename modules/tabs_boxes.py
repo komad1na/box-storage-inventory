@@ -20,6 +20,7 @@ from PyQt6.QtCore import Qt
 
 from .styles import ModernStyle
 from .dialogs import EditBoxDialog
+from . import get_translator
 
 
 class BoxesTab(QWidget):
@@ -27,6 +28,7 @@ class BoxesTab(QWidget):
 
     def __init__(self, parent):
         super().__init__(parent)
+        self.translator = get_translator()
         self.parent = parent
         self.setup_ui()
 

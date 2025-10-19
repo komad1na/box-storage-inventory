@@ -19,6 +19,7 @@ from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QColor
 
 from .styles import ModernStyle
+from . import get_translator
 
 
 class HistoryTab(QWidget):
@@ -26,6 +27,7 @@ class HistoryTab(QWidget):
 
     def __init__(self, parent):
         super().__init__(parent)
+        self.translator = get_translator()
         self.parent = parent
         self.setup_ui()
 
@@ -56,16 +58,16 @@ class HistoryTab(QWidget):
 
         # Search by entity name
         self.search_input = QLineEdit()
-        self.search_input.setPlaceholderText("Search by entity name...")
+        self.search_input.setPlaceholderText(self.translator.tr('placeholder_search_history'))
         self.search_input.textChanged.connect(self.load_logs)
         filter_layout.addWidget(self.search_input, 2)
 
-        clear_btn = QPushButton("Clear Filters")
+        clear_btn = QPushButton(self.translator.tr('btn_clear_filters'))
         clear_btn.setProperty("class", "neutral")
         clear_btn.clicked.connect(self.clear_filters)
         filter_layout.addWidget(clear_btn, 1)
 
-        refresh_btn = QPushButton("Refresh")
+        refresh_btn = QPushButton(self.translator.tr('btn_refresh'))
         refresh_btn.clicked.connect(self.load_logs)
         filter_layout.addWidget(refresh_btn, 1)
 
@@ -74,9 +76,14 @@ class HistoryTab(QWidget):
         # Table
         self.table = QTableWidget()
         self.table.setColumnCount(6)
-        self.table.setHorizontalHeaderLabels(
-            ["Timestamp", "Action", "Type", "Entity", "Details", "ID"]
-        )
+        self.table.setHorizontalHeaderLabels([
+            self.translator.tr('label_timestamp'),
+            self.translator.tr('label_action'),
+            self.translator.tr('label_type'),
+            self.translator.tr('label_entity'),
+            self.translator.tr('label_details'),
+            self.translator.tr('header_id')
+        ])
 
         # Set column widths
         header = self.table.horizontalHeader()
